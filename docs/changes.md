@@ -67,7 +67,7 @@ Changes 2 and 3 make the panel's `items` (the slot tiles and the
 select models) prefer the MCC identity — name, vendor, hex color —
 and fall back to the stock numeric resolution untouched when MCC
 has nothing for the slot. The tile for a slot set on the screen to a
-Bambu Lab filament now shows that filament, in its color, instead
+Bambu filament now shows that filament, in its color, instead
 of whatever the stale numeric trio happens to decode to.
 
 ### 2. Vendor-scoped material list + refresh — changes 4–5
@@ -162,7 +162,9 @@ numeric world**:
   are appended as `fila51`–`fila77` with vendor, QF ID, type and
   temperatures;
 - `vendor_list` keeps `0 = Generic`, `1 = QIDI` and appends
-  `2 = HATCHBOX`, `3 = Polymaker`, `4 = Bambu Lab`, `5 = Overture`;
+  `2 = HATCHBOX`, `3 = Polymaker`, `4 = Bambu Lab`, `5 = Overture`
+  (the `Bambu Lab` form is corrected to the printer's `Bambu` in
+  Correction 2 below);
 - `colordict` is the stock one, untouched (color indexes are
   referenced by `color_slot<N>` values).
 
@@ -193,7 +195,9 @@ Generic/QIDI catalogue filaments (QFA90, QFG90, QFB91, QFA92,
 QFA05); those were deliberately **not** appended: their names are
 already representable for Generic/QIDI through the vendor-less
 legacy entries (which scope to Generic/QIDI under change 4), so
-their absence breaks nothing, and QFL61 does not exist in the
+their absence breaks nothing **[superseded by Correction 2
+  below: those filaments are part of the printer's database and
+  are now in the table]**, and QFL61 does not exist in the
 catalogue (a gap in QIDI's own numbering, not an omission here).
 
 **Correction 2 (2026-11-06) — the table now mirrors the printer's
@@ -263,7 +267,7 @@ full method and results in [testing.md](testing.md)):
 - a vendor change written by the emulated screen (`vendor_slot=4`,
   `filament_slot=69`) is followed live by the panel: tile and
   selects show Bambu PETG, and the material menu contains exactly
-  the three Bambu Lab entries;
+  the three Bambu entries;
 - the patcher is reproducible: stock SHA-256 in, identical
   patched SHA-256 out, and it refuses the already-patched bundle.
 
