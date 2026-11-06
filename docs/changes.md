@@ -236,7 +236,21 @@ The bundle is unchanged (it reads the table at runtime). The full
 bench battery was re-run against the corrected table: vendor
 switch + remap 11/11, HMI→Fluidd live identity display, print
 gate 6/6. Table SHA-256:
-`b0ecc65a98a2d8366a524325f47c8a2d6b548c29568f6ae803567fa672ec3199`.
+`9582ea73b2931bfb592089849fdd4410ee37011d12ba7d719c39a56be08ad6c5`.
+
+**Deduplication (same day).** The first v2 build resolved the
+seven legacy entries in place but left the copies of the same
+filaments that the v1 construction had appended — six QF codes
+appeared twice (QFA04, QFA16, QFB53, QFB55, QFG03, QFU00), with
+conflicting temperatures on three of them. The stock entries are
+the canonical ones (their numbers and temperatures are the
+printer's shipped references); the six appended duplicates
+(fila53, fila54, fila57, fila59, fila62, fila73) are now unnamed
+placeholder sections, like the other non-database sections. The
+table now holds exactly 56 named entries and 56 unique QF codes,
+verified 1:1 against the printer's database, and the bench
+battery was re-run once more (vendor switches 11/11, print gate
+6/6).
 
 ## Differences from ThorSc's patch (same target, different seams)
 
