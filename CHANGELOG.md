@@ -10,7 +10,7 @@ Reference stock bundle SHA-256:
 Filament table rebuilt to mirror the printer's own filament
 database (see Correction 2 in docs/changes.md). Bundle unchanged.
 Filament table (`officiall_filas_list.cfg`) SHA-256:
-`b0ecc65a98a2d8366a524325f47c8a2d6b548c29568f6ae803567fa672ec3199`
+`9582ea73b2931bfb592089849fdd4410ee37011d12ba7d719c39a56be08ad6c5`
 
 - Names and vendor forms now match the printer's database
   throughout (`Generic PLA+`, `Polymaker PLA`, vendor `Bambu`,
