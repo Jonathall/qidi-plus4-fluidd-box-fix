@@ -196,6 +196,44 @@ legacy entries (which scope to Generic/QIDI under change 4), so
 their absence breaks nothing, and QFL61 does not exist in the
 catalogue (a gap in QIDI's own numbering, not an omission here).
 
+**Correction 2 (2026-11-06) — the table now mirrors the printer's
+database.** The design rule, stated plainly: what the HMI offers
+and reports is the truth, and Fluidd's lists must reproduce it —
+same names, same vendor forms, same QF codes, nothing invented on
+the Fluidd side. Audited against the printer's own filament
+database (the `filament-<nozzle>.json` dataset transcribed in
+ThorSc's bundle: 56 filaments, 6 vendors), the shipped table
+diverged in four ways, all fixed in place — **no existing entry
+renumbered**:
+
+- 14 entries carried QIDI Studio catalogue name forms instead of
+  the printer's (`PLA+` → `Generic PLA+`, `PolyLite PLA` →
+  `Polymaker PLA`, vendor `Bambu Lab` → `Bambu`, …). The panel
+  matches identities by string against the firmware's resolved
+  names, so those entries could fail to match a slot the HMI had
+  set. Names and vendors now use the printer's forms everywhere,
+  including `vendor_list` (`4 = Bambu`).
+- 7 legacy stock entries that ARE printer filaments under current
+  names gained their QF codes: PLA Metal → QFA04, PLA Silk →
+  QFA05, PLA-Wood → QFA16, ABS-Metal → QFB55, ABS-Odorless →
+  QFB53, PETG-Though [stock typo] → QFG03, TPU-AERO → QFU00.
+- The 5 filaments the earlier correction deliberately skipped
+  (Generic PLA/PETG/ABS, Generic PLA Silk, and QIDI PLA Silk via
+  fila4 above) are now present: `fila83`–`fila86` appended
+  (QFA90, QFB91, QFG90, QFA92). The table now covers the printer's
+  full 56-filament database.
+- 6 stock names that are not in the printer's database (`PLA`,
+  `PLA Matte`, `ABS`, `PETG`, `PVA`, `TPU`) no longer claim a
+  name: their sections remain as unnamed placeholders (stock
+  temperatures and type kept) so legacy numeric references cannot
+  dangle.
+
+The bundle is unchanged (it reads the table at runtime). The full
+bench battery was re-run against the corrected table: vendor
+switch + remap 11/11, HMI→Fluidd live identity display, print
+gate 6/6. Table SHA-256:
+`b0ecc65a98a2d8366a524325f47c8a2d6b548c29568f6ae803567fa672ec3199`.
+
 ## Differences from ThorSc's patch (same target, different seams)
 
 ThorSc's `qidi-max4-plus4-fluidd-box-patch` (v0.9.3, GPL-3.0) fixes
