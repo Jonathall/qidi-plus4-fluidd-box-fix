@@ -71,16 +71,26 @@ independent model of the expected remap:
   state after such a switch. Every vendor in `vendor_list` now
   owns at least one valid entry.
 
+  *Later correction (2026-11-06, see Correction 2 in
+  [changes.md](changes.md)): the table was subsequently rebuilt to
+  mirror the printer's filament database exactly — printer name
+  forms throughout (`Polymaker PLA`, `Generic PLA+`, vendor
+  `Bambu`), the five database filaments this construction had
+  skipped appended, legacy names the printer does not know
+  anonymized. The battery was re-run against the corrected table:
+  vendor-switch matrix 11/11, live screen→Fluidd identity, print
+  gate 6/6.*
+
 ### 2. Two-way synchronization Fluidd ↔ screen
 
 - **Screen → Fluidd:** a slot assignment written by the emulated
-  screen client (Polymaker / PolyLite PLA on slot 2) appeared in
+  screen client (Polymaker / Polymaker PLA on slot 2) appeared in
   the already-loaded panel — tiles and selects updated from the
   pushed object deltas, no page reload — with the same resolved
   name, vendor and color on both sides.
 - **Fluidd → screen:** a vendor change made through the panel
   was received by the screen client, which resolved the slot to
-  the identical identity (Polymaker / PolyLite PLA) from both
+  the identical identity (Polymaker / Polymaker PLA) from both
   `save_variables` and `multi_color_controller`.
 
 ### 3. Load / unload cycles from the panel
