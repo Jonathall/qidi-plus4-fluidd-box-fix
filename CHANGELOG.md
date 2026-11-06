@@ -5,6 +5,25 @@ Bundle format: QIDI's shipped Fluidd v1.30.4, firmware 2.1.1
 Reference stock bundle SHA-256:
 `4770bade9c2154fc1f44b3650746bc855eb008e6376f1d24820db59eb541ed59`.
 
+## Table correction — 2026-11-06
+
+Filament table rebuilt to mirror the printer's own filament
+database (see Correction 2 in docs/changes.md). Bundle unchanged.
+Filament table (`officiall_filas_list.cfg`) SHA-256:
+`b0ecc65a98a2d8366a524325f47c8a2d6b548c29568f6ae803567fa672ec3199`
+
+- Names and vendor forms now match the printer's database
+  throughout (`Generic PLA+`, `Polymaker PLA`, vendor `Bambu`,
+  including `vendor_list`).
+- Seven legacy entries gained their QF codes (PLA Metal, PLA
+  Silk, PLA-Wood, ABS-Metal, ABS-Odorless, PETG-Though [stock
+  typo], TPU-AERO); the five database filaments the first table
+  skipped are appended as fila83–fila86; stock sections that are
+  not in the printer's database are now unnamed placeholders.
+  No existing entry renumbered.
+- Bench battery re-run against the corrected table: vendor
+  switches 11/11, print gate 6/6.
+
 ## 1.0.0 — 2026-11-06
 
 Patched bundle SHA-256:
