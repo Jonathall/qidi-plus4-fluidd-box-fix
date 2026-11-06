@@ -200,57 +200,52 @@ their absence breaks nothing **[superseded by Correction 2
   are now in the table]**, and QFL61 does not exist in the
 catalogue (a gap in QIDI's own numbering, not an omission here).
 
-**Correction 2 (2026-11-06) — the table now mirrors the printer's
-database.** The design rule, stated plainly: what the HMI offers
-and reports is the truth, and Fluidd's lists must reproduce it —
-same names, same vendor forms, same QF codes, nothing invented on
-the Fluidd side. Audited against the printer's own filament
-database (the `filament-<nozzle>.json` dataset transcribed in
-ThorSc's bundle: 56 filaments, 6 vendors), the shipped table
-diverged in four ways, all fixed in place — **no existing entry
-renumbered**:
+**Correction 2 (2026-11-06) — the table is rebuilt from the
+printer's database.** The design rule, stated plainly: what the
+HMI offers and reports is the truth, and Fluidd's lists must
+reproduce it — same names, same vendor forms, same QF codes,
+nothing invented on the Fluidd side. The first shipped table had
+been built the other way around (the legacy stock file enriched
+from the QIDI Studio catalogue), and it diverged from the
+printer's own filament database (the `filament-<nozzle>.json`
+dataset transcribed in ThorSc's bundle: 56 filaments, 6 vendors):
+Studio name forms instead of the printer's (`PLA+` instead of
+`Generic PLA+`, `PolyLite PLA` instead of `Polymaker PLA`, vendor
+`Bambu Lab` instead of `Bambu`, including in `vendor_list`),
+legacy filaments left without their QF codes, five database
+filaments missing entirely, legacy names the printer does not
+know, and — once the codes were added in place — six QF codes
+present twice with conflicting temperatures.
 
-- 14 entries carried QIDI Studio catalogue name forms instead of
-  the printer's (`PLA+` → `Generic PLA+`, `PolyLite PLA` →
-  `Polymaker PLA`, vendor `Bambu Lab` → `Bambu`, …). The panel
-  matches identities by string against the firmware's resolved
-  names, so those entries could fail to match a slot the HMI had
-  set. Names and vendors now use the printer's forms everywhere,
-  including `vendor_list` (`4 = Bambu`).
-- 7 legacy stock entries that ARE printer filaments under current
-  names gained their QF codes: PLA Metal → QFA04, PLA Silk →
-  QFA05, PLA-Wood → QFA16, ABS-Metal → QFB55, ABS-Odorless →
-  QFB53, PETG-Though [stock typo] → QFG03, TPU-AERO → QFU00.
-- The 5 filaments the earlier correction deliberately skipped
-  (Generic PLA/PETG/ABS, Generic PLA Silk, and QIDI PLA Silk via
-  fila4 above) are now present: `fila83`–`fila86` appended
-  (QFA90, QFB91, QFG90, QFA92). The table now covers the printer's
-  full 56-filament database.
-- 6 stock names that are not in the printer's database (`PLA`,
-  `PLA Matte`, `ABS`, `PETG`, `PVA`, `TPU`) no longer claim a
-  name: their sections remain as unnamed placeholders (stock
-  temperatures and type kept) so legacy numeric references cannot
-  dangle.
+The table shipped now is a clean rebuild from the database, the
+way it should have been built the first time:
 
-The bundle is unchanged (it reads the table at runtime). The full
-bench battery was re-run against the corrected table: vendor
-switch + remap 11/11, HMI→Fluidd live identity display, print
-gate 6/6. Table SHA-256:
-`9582ea73b2931bfb592089849fdd4410ee37011d12ba7d719c39a56be08ad6c5`.
+- content = the printer's 56 database filaments, each exactly
+  once, under the printer's current names, vendor forms and QF
+  codes;
+- numbering: a database filament that has a stock entry keeps
+  its stock number and its stock temperatures (26 filaments —
+  including the documented legacy renames PLA Metal → PLA
+  Rapido Metal QFA04, PLA Silk → QFA05, PLA-Wood → WOOD Rapido
+  QFA16, ABS-Metal → QFB55, ABS-Odorless → QFB53, the stock
+  typo PETG-Though → PETG Tough QFG03, TPU-AERO → QFU00); the
+  30 database filaments the stock table lacks are appended as
+  fila51–fila80 with catalogue temperatures;
+- stock sections that are not in the printer's database (QIDI's
+  own blank placeholders, plus `PLA`, `PLA Matte`, `ABS`, `PETG`,
+  `PVA`, `TPU`) are unnamed placeholder sections carrying only
+  their stock temperatures and type, so legacy numeric references
+  cannot dangle — they claim no identity;
+- one source of values per identity, by construction: a
+  uniqueness check against the printer's database (56 named
+  entries, 56 unique QF codes, exact 1:1 on names and vendors)
+  is now part of the validation, alongside the bench battery
+  (vendor switch + remap 11/11, HMI→Fluidd live identity
+  display, print gate 6/6 — re-run against the rebuilt table).
 
-**Deduplication (same day).** The first v2 build resolved the
-seven legacy entries in place but left the copies of the same
-filaments that the v1 construction had appended — six QF codes
-appeared twice (QFA04, QFA16, QFB53, QFB55, QFG03, QFU00), with
-conflicting temperatures on three of them. The stock entries are
-the canonical ones (their numbers and temperatures are the
-printer's shipped references); the six appended duplicates
-(fila53, fila54, fila57, fila59, fila62, fila73) are now unnamed
-placeholder sections, like the other non-database sections. The
-table now holds exactly 56 named entries and 56 unique QF codes,
-verified 1:1 against the printer's database, and the bench
-battery was re-run once more (vendor switches 11/11, print gate
-6/6).
+The bundle is unchanged (it reads the table at runtime). Table
+SHA-256:
+`bbf21c8af8f71f3126a1c7c9f6feb9140dc6ce90fe8065fc74f500ab20af073e`.
 
 ## Differences from ThorSc's patch (same target, different seams)
 
