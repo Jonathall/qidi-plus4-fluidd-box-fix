@@ -100,7 +100,7 @@ choose:
 | File | Goes to (exact path) | Role |
 | --- | --- | --- |
 | `index-BHXUyR-O.js` (patched bundle) | `/home/mks/fluidd/assets/index-BHXUyR-O.js` | the repaired interface |
-| `officiall_filas_list.cfg` | `~/printer_data/config/officiall_filas_list.cfg` | filament table built for the Plus 4's numbering: the 50 stock entries unchanged, plus vendor / filament-ID data and the remaining screen-catalogue filaments (82 entries, 6 vendors: Generic, QIDI, HATCHBOX, Polymaker, Bambu Lab, Overture) |
+| `officiall_filas_list.cfg` | `~/printer_data/config/officiall_filas_list.cfg` | filament table built for the Plus 4's numbering and mirroring the printer's own filament database: the 56 database filaments (6 vendors: Generic, QIDI, HATCHBOX, Polymaker, Bambu, Overture) with the printer's names and QF codes — stock numbers preserved, the missing ones appended (86 sections; stock sections that are not in the printer's database stay as unnamed placeholders) |
 
 No experience with any of this is assumed. The next section
 walks through connecting to the printer and moving files, click
