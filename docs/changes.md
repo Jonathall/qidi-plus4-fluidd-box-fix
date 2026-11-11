@@ -247,6 +247,15 @@ The bundle is unchanged (it reads the table at runtime). Table
 SHA-256:
 `bbf21c8af8f71f3126a1c7c9f6feb9140dc6ce90fe8065fc74f500ab20af073e`.
 
+Addendum (2026-11-10): five `[colordict]` entries in this table
+were then corrected to the hex codes the firmware itself writes
+(#4 `#5CF30F` → `#5CF30E`, #7 `#FE98FE` → `#FF98FE`,
+#13 `#CADE4B` → `#CADF4B`, #17 `#FE717A` → `#FF7174`,
+#20 `#898F9B` → `#898F8B`) — the panel resolves a screen-set
+color by exact hex match, and the stock values never matched.
+Current table SHA-256:
+`9e73b75d5f2f5f483095eb5cb942f2429fb99741d8aed63697985e8197e11576`.
+
 ## Differences from ThorSc's patch (same target, different seams)
 
 ThorSc's `qidi-max4-plus4-fluidd-box-patch` (v0.9.3, GPL-3.0) fixes

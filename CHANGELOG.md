@@ -5,6 +5,22 @@ Bundle format: QIDI's shipped Fluidd v1.30.4, firmware 2.1.1
 Reference stock bundle SHA-256:
 `4770bade9c2154fc1f44b3650746bc855eb008e6376f1d24820db59eb541ed59`.
 
+## Table correction 2 — 2026-11-10
+
+Color palette corrected to the hex codes the firmware writes
+(see the Plus 5 fix, V9.3, where the correction was contributed
+by mayrthom via a fork and verified against a real printer).
+Five `[colordict]` entries copied verbatim from the stock table
+did not match the hex values the printer itself stores when a
+color is set on the printer screen: #4 `#5CF30F` → `#5CF30E`,
+#7 `#FE98FE` → `#FF98FE`, #13 `#CADE4B` → `#CADF4B`,
+#17 `#FE717A` → `#FF7174`, #20 `#898F9B` → `#898F8B`. The panel
+resolves a screen-set color by exact hex match against
+`[colordict]`; on a mismatch it fell back to palette index 0 and
+the color never appeared in Fluidd. Bundle unchanged.
+Filament table (`officiall_filas_list.cfg`) SHA-256:
+`9e73b75d5f2f5f483095eb5cb942f2429fb99741d8aed63697985e8197e11576`
+
 ## Table correction — 2026-11-06
 
 Filament table rebuilt from the printer's own filament database
