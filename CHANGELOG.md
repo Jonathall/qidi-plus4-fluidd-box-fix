@@ -5,6 +5,25 @@ Bundle format: QIDI's shipped Fluidd v1.30.4, firmware 2.1.1
 Reference stock bundle SHA-256:
 `4770bade9c2154fc1f44b3650746bc855eb008e6376f1d24820db59eb541ed59`.
 
+## 1.0.1 — 2026-11-16
+
+Patched bundle SHA-256:
+`7f71f57595bdad64fd14d298ebd4c58407e79a99ece4ec1014e41ae7b5f3bcdf`
+Filament table (`officiall_filas_list.cfg`) unchanged, SHA-256:
+`9e73b75d5f2f5f483095eb5cb942f2429fb99741d8aed63697985e8197e11576`
+
+- **Spool tile colors fixed.** Change 1 built the tile color as
+  `"#"+color_rgb_str[0]`, but the firmware publishes
+  `color_rgb_str` with its `#` already included, so every
+  MCC-resolved tile color came out as `##RRGGBB` — an invalid CSS
+  color, discarded by the browser, leaving the spool tiles dark
+  even though the saved color indexes were correct. The color is
+  now normalized (strip any existing `#`, prefix exactly one) at
+  both sites: slots 0–15 and the external slot 16. Verified on a
+  two-Box bench configuration, where the 1.0.0 bundle reproduces
+  the dark tiles and 1.0.1 renders every tile in its color
+  (see docs/changes.md, Correction 2026-11-16).
+
 ## Table correction 2 — 2026-11-10
 
 Color palette corrected to the hex codes the firmware writes

@@ -5,7 +5,7 @@ A patch for the Fluidd web interface bundled with the **QIDI Plus 4**
 printer screen shows — and stops silently overwriting it.
 
 > **Status — beta, bench-tested only.** Tested on a simulated bench reproducing the firmware 2.1.1 data contracts (upstream Klipper/Moonraker, simulated Box objects, emulated touchscreen client), including two-way Fluidd↔touchscreen synchronization tests. Not yet smoke-tested on a real Plus 4 — beta.
-> Current build: 1.0.0.
+> Current build: 1.0.1.
 
 ## ⚠️ READ FIRST — Where the files go
 
@@ -329,7 +329,7 @@ reference stock bundle (SHA-256 above) and that every anchor is
 found an exact expected number of times; otherwise it refuses to
 modify anything. On the reference stock bundle it produces the
 drop-in file **byte for byte** (SHA-256
-`223edbccdf2bdc79ec6deefd85f0126ae916bb75819059d0f13f81aa3a03c19b`).
+`7f71f57595bdad64fd14d298ebd4c58407e79a99ece4ec1014e41ae7b5f3bcdf`).
 
 ```sh
 # on your PC, against a downloaded copy of your bundle:
@@ -358,7 +358,7 @@ reference stock build, the script stops and changes nothing.
    again (drag it back to your computer, as in path A step 2)
    and check its SHA-256 — same `certutil` / `shasum` commands
    as in path A step 2: it must now be
-   `223edbccdf2bdc79ec6deefd85f0126ae916bb75819059d0f13f81aa3a03c19b`.
+   `7f71f57595bdad64fd14d298ebd4c58407e79a99ece4ec1014e41ae7b5f3bcdf`.
    If you still see the stock hash, the new file did not land in
    the served tree — re-check the ⚠️ box above.
 2. **Hard-refresh** Fluidd in your browser (**Ctrl+F5**). Fluidd
@@ -366,7 +366,7 @@ reference stock build, the script stops and changes nothing.
    bundle from cache; a verified install can look unchanged until
    you do this.
 3. **Confirm in the browser console:** `window.__qidiPlus4Fix`
-   must return `"1.0.0"`.
+   must return `"1.0.1"`.
 
 ## What the fix does
 

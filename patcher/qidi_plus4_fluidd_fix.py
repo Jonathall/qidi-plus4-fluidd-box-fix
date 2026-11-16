@@ -36,7 +36,7 @@ import os
 import shutil
 import sys
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 STOCK_SHA256 = "4770bade9c2154fc1f44b3650746bc855eb008e6376f1d24820db59eb541ed59"
 STAMP = 'window.__qidiPlus4Fix="%s";' % VERSION
 
@@ -44,8 +44,14 @@ STAMP = 'window.__qidiPlus4Fix="%s";' % VERSION
 PATCHES = [
     # --- change 1: MCC identity + write-back protection helpers -----
     # Inserted just before the panel's slotSync getter (unique anchor).
+    # Color normalization (corrected in 1.0.1, 2026-11-16): the real
+    # firmware publishes color_rgb_str WITH its '#' (e.g. ['#898F8B'],
+    # proven on a real Plus 5), so the hex is stripped of any existing
+    # '#' before exactly one is prefixed - the original 1.0.0 code did
+    # "#"+cr[0] and produced '##RRGGBB', an invalid CSS color that
+    # left every spool tile dark. Same normalization as the Q2 fix.
     ('get slotSync(){if(typeof this.variables.slotSync=="string")',
-     'get mccInfo(){const P=this.$store.state.printer.printer||{},M=P.multi_color_controller,out={};if(!M)return out;const B=M.box||{};for(let m=0;m<16;m++){const b=Math.floor(m/4),k=m%4,pre=`box${b}_filament_info_${k}_`,fs=B[pre+"filament_str"];if(fs){const cr=B[pre+"color_rgb_str"];out[m]={filament:fs,vendor:B[pre+"vendor_str"]||"",color:Array.isArray(cr)&&cr.length?"#"+cr[0]:"",filament_id:B[pre+"filament_id"]||""}}}const ex=(M.extra||{}).filament_info;if(ex&&ex.filament_str){const cr=ex.color_rgb_str;out[16]={filament:ex.filament_str,vendor:ex.vendor_str||"",color:Array.isArray(cr)&&cr.length?"#"+cr[0]:"",filament_id:ex.filament_id||""}}return out}'
+     'get mccInfo(){const P=this.$store.state.printer.printer||{},M=P.multi_color_controller,out={};if(!M)return out;const B=M.box||{};for(let m=0;m<16;m++){const b=Math.floor(m/4),k=m%4,pre=`box${b}_filament_info_${k}_`,fs=B[pre+"filament_str"];if(fs){const cr=B[pre+"color_rgb_str"];out[m]={filament:fs,vendor:B[pre+"vendor_str"]||"",color:Array.isArray(cr)&&cr.length?"#"+String(cr[0]).replace("#",""):"",filament_id:B[pre+"filament_id"]||""}}}const ex=(M.extra||{}).filament_info;if(ex&&ex.filament_str){const cr=ex.color_rgb_str;out[16]={filament:ex.filament_str,vendor:ex.vendor_str||"",color:Array.isArray(cr)&&cr.length?"#"+String(cr[0]).replace("#",""):"",filament_id:ex.filament_id||""}}return out}'
      'get slotProtected(){const M=this.mccInfo[this.selectIndex];if(!M||!M.filament)return!1;const D=this.officialFilasListDictData;if(!D||!D.vendor_list)return!1;if(!Object.values(D.vendor_list).includes(M.vendor))return!0;for(const k in D){if(!k.startsWith("fila"))continue;const e=D[k];if(e&&e.filament===M.filament&&(!e.vendor||e.vendor===M.vendor))return!1}return!0}'
      'get slotSync(){if(typeof this.variables.slotSync=="string")',
      1),

@@ -142,6 +142,36 @@ is an older, unserved build) and multiple accumulated
 `index-*.js` bundles — a correct patch copied to the wrong tree
 or name changes nothing at all.
 
+### 6. Color rendering — v1.0.1 battery (2026-11-16)
+
+Run after a field report of dark spool tiles on a **two-Box**
+machine. Two bench corrections came first: the simulated
+`multi_color_controller` now publishes `color_rgb_str` in the
+firmware's real format (`['#RRGGBB']`, `#` included — the model
+previously stripped it, which is why the 2026-11-06 battery could
+not see this bug), and the bench ran at `box_count = 2` (8 slots
+plus the external rack) for the first time.
+
+- **Regression proof:** the shipped 1.0.0 bundle, served against
+  the corrected bench, resolves every tile color as `##RRGGBB`
+  (`##FF98FE`, `##6E3812`, `##B87F2B`, …) — the field report,
+  reproduced.
+- **Fix:** with the 1.0.1 bundle, all 9 tiles (slots 0–7 and the
+  rack) render at the exact expected hex in the DOM, single `#`
+  (1A `#FF98FE`, 2A `#6E3812`, 2B `#B87F2B`, rack `#898F8B`, …).
+- **Non-regression:** vendor switch with filament remap on one
+  slot of each Box (slot 0 → Polymaker, slot 5 → Bambu, written
+  values as predicted); protected slot (unrepresentable identity)
+  still displays its color with the selects disabled and emits no
+  write.
+- A reported brief reload/reconnect on color-swatch clicks could
+  **not** be reproduced on this bench: a real DOM color click
+  wrote the expected `color_slot` value with no websocket
+  disconnect and no Moonraker/Klipper restart observed. The bench
+  runs upstream Klipper/Moonraker with simulated Box extras, not
+  QIDI's compiled Box modules, so a firmware-specific trigger
+  cannot be ruled out from the bench alone.
+
 ## Limitations
 
 - **No real Plus 4 was used.** Object shapes and fields are the

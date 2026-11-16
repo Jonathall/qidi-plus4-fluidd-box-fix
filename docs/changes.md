@@ -3,11 +3,39 @@
 The patch is **10 anchored replacements** in the minified stock bundle
 of firmware **2.1.1** (`assets/index-BHXUyR-O.js`, SHA-256
 `4770bade…a59`), plus a version stamp
-(`window.__qidiPlus4Fix = "1.0.0"`). `patcher/qidi_plus4_fluidd_fix.py`
+(`window.__qidiPlus4Fix = "1.0.1"`). `patcher/qidi_plus4_fluidd_fix.py`
 lists the anchors verbatim and refuses any input whose SHA-256 is not
 the reference stock bundle. The patched bundle's SHA-256 is
-`223edbccdf2bdc79ec6deefd85f0126ae916bb75819059d0f13f81aa3a03c19b`,
-reproducible byte for byte from the stock bundle.
+`7f71f57595bdad64fd14d298ebd4c58407e79a99ece4ec1014e41ae7b5f3bcdf`,
+reproducible byte for byte from the stock bundle. (v1.0.0, superseded
+by the 2026-11-16 correction below, was
+`223edbccdf2bdc79ec6deefd85f0126ae916bb75819059d0f13f81aa3a03c19b`.)
+
+**Correction (2026-11-16) — v1.0.1, the `##` color bug.** A field
+report (a user running **two** Boxes, 8 slots) showed every spool
+tile in the Control Box card dark/uncolored, while the panel's color
+writes were provably correct (`SAVE_VARIABLE color_slot<N>` carried
+the right palette indexes, e.g. 7, 21, 24). The bug was in change 1
+as shipped in 1.0.0: `mccInfo` built the tile color as
+`"#"+color_rgb_str[0]`, assuming the firmware publishes the hex
+without a `#`. It does not: the real firmware publishes
+`color_rgb_str` **with** the `#` (`['#898F8B']`, proven on a real
+Plus 5 — see the Plus 5 fix's V9.3 palette correction), so every
+MCC-resolved tile color came out as `##RRGGBB`, an invalid CSS
+color the browser discards, and the tile fell back to dark. The
+stock numeric path (`colordict[String(colorSlot)]`) was correct all
+along; the MCC override broke it. Change 1 now normalizes the same
+way the Q2 fix does — strip any existing `#`, prefix exactly one —
+at both sites (slots 0–15 and the external slot 16). No anchor, no
+change count and no other change is affected. Why the bench missed
+it: the bench's simulated `multi_color_controller` published
+`color_rgb_str` **without** `#` (the simulator stripped it), so the
+panel was validated against the simulator's own assumption — the
+simulator has been corrected to publish the real `['#RRGGBB']`
+format, and on the corrected bench the 1.0.0 bundle reproduces the
+field report exactly (`##FF98FE`, `##6E3812`, `##B87F2B`, …) while
+1.0.1 renders every tile in its color, on both Boxes and the rack.
+Full battery: `docs/testing.md`, section 2026-11-16.
 
 Everything follows the same principle as the Plus 5 fix: **the
 firmware is the source of truth** — Fluidd is adapted to the state
