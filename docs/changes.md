@@ -284,6 +284,15 @@ color by exact hex match, and the stock values never matched.
 Current table SHA-256:
 `9e73b75d5f2f5f483095eb5cb942f2429fb99741d8aed63697985e8197e11576`.
 
+Addendum (2026-11-25): those five entries are restored to the
+stock values (#4 `#5CF30F`, #7 `#FE98FE`, #13 `#CADE4B`,
+#17 `#FE717A`, #20 `#898F9B`). The replacement values had been
+verified on a Plus 5 only, never on a Plus 4; the Plus 4's own
+stock table (firmware 2.1.1 and 1.7.1 packages) carries the
+stock values. Current table SHA-256:
+`bbf21c8af8f71f3126a1c7c9f6feb9140dc6ce90fe8065fc74f500ab20af073e`
+— byte-identical to the table as built on 2026-11-06.
+
 ## Differences from ThorSc's patch (same target, different seams)
 
 ThorSc's `qidi-max4-plus4-fluidd-box-patch` (v0.9.3, GPL-3.0) fixes

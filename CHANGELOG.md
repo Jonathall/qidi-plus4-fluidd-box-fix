@@ -5,6 +5,24 @@ Bundle format: QIDI's shipped Fluidd v1.30.4, firmware 2.1.1
 Reference stock bundle SHA-256:
 `4770bade9c2154fc1f44b3650746bc855eb008e6376f1d24820db59eb541ed59`.
 
+## Table correction 3 — 2026-11-25
+
+Reverts Table correction 2 (2026-11-10). The five replacement
+`[colordict]` values came from the Plus 5 fix, where they were
+verified against a real Plus 5; they were never verified on a
+Plus 4. The Plus 4's own stock filament table — identical in
+the firmware 2.1.1 and 1.7.1 packages — carries the original
+values, and the palette again matches the printer's own stock
+table: #4 `#5CF30E` → `#5CF30F`, #7 `#FF98FE` → `#FE98FE`,
+#13 `#CADF4B` → `#CADE4B`, #17 `#FF7174` → `#FE717A`,
+#20 `#898F8B` → `#898F9B`. Cosmetic only: the palette feeds the
+panel's colour swatches; no effect on filament identities,
+temperatures or slot assignments. Bundle unchanged.
+Filament table (`officiall_filas_list.cfg`) SHA-256:
+`bbf21c8af8f71f3126a1c7c9f6feb9140dc6ce90fe8065fc74f500ab20af073e`
+(byte-identical to the 2026-11-06 table built from the
+printer's own filament database).
+
 ## 1.0.1 — 2026-11-16
 
 Patched bundle SHA-256:
